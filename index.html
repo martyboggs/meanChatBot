@@ -17,7 +17,7 @@
 				background: rgb(238, 238, 238);
 			}
 			.wrap {
-				max-width: 800px;
+				max-width: 700px;
 			}
 			.input-wrap {
 				margin-right: 90px;
@@ -298,7 +298,7 @@
 					if (story === -1 && storyLine > 0) storyLine -= 1; // fix for clearTimouts
 					else if (story !== -1 && storyLine > -1) storyLine -= 1;
 
-					var someRandomness = (Math.random() > 0.2) ? true : false;
+					var someRandomness = (Math.random() > 0.05) ? true : false;
 					if (someRandomness) {
 						for (var i = 0; i < checks.length; i++) {
 							if (check(checks[i].array)) {
@@ -328,7 +328,6 @@
 
 		</script>
 	</head>
-
 <body>
 
 <div class="wrap container">
