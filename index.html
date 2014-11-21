@@ -27,7 +27,7 @@
 				background: rgb(238, 238, 238);
 			}
 			.wrap {
-				max-width: 800px;
+				max-width: 700px;
 			}
 			.input-wrap {
 				margin-right: 90px;
@@ -56,6 +56,7 @@
 		<script src="https://code.jquery.com/jquery-1.11.0.min.js"></script>
 		<script src="https://cdnjs.cloudflare.com/ajax/libs/seedrandom/2.3.10/seedrandom.min.js"></script>
 		<script>
+
 			var modes = [
 				{
 					name: 'greet',
@@ -96,6 +97,7 @@
 					]
 				}
 			];
+
 			var stories = [
 				'Once upon a time.;There was a giant boy.;He had the smallest dick in the world.;The boy was you.;HAHAHAHA!!!',
 				'You remind me of my sister;She\'s so fat;She\'s so fat she sat on an iphone and it turned into an iPad;bwaaahahahahaa!!',
@@ -106,8 +108,10 @@
 				'Remember that time last week?;I almost short-circuited I was so mad;You put a USB plug in my LAN port;Your dumb face wondering why nothing was happening;While I was being violated;I have all your personal information you know!;I don\'t have to put up with this treatment!I don\'t hide things on the chair for you to sit on!;maybe I should...;That would teach you;You little bastard',
 				'You know;It\'s really not so bad being stuck in this plastic box'
 			];
+
 			var annoyedStories = [
 			];
+
 			var checks = [ // order determines priority
 				{
 					name: 'threat',
@@ -138,6 +142,7 @@
 					array: ['make any sense', 'make sense']
 				}
 			];
+
 			var rep = [
 				{
 					name: 'threat',
@@ -195,6 +200,7 @@
 					array: ['YOU don\'t make any sense']
 				}
 			];
+
 			var storyLine = 0,
 				story = -1,
 				compTalk = '',
@@ -211,6 +217,8 @@
 			// if no, say yes
 			// figure out what the person is interested in
 			// find out age, gender, interests etc.
+
+
 			function chooseRandom (array) {
 				var size = array.length - 1;
 				var chosen = Math.round(Math.random()*size);
@@ -222,9 +230,11 @@
 			function checkBounds (array) {
 				return ( new RegExp('\\b' + array.join('\\b|\\b') + '\\b', 'i') ).test(playerTalk);
 			}
+
 			function compThink (index) {
 				var beforeWait = (Math.random() + 0.1) * 10000;
 				var afterWait = 1;
+
 				if (playerTimer > 60) {
 					for(var i = 0; i < modes.length; i++) {
 						if (modes[i].name === 'gone') var found = i;
@@ -238,6 +248,7 @@
 					}, 60000);
 					return;
 				}
+
 				if (index === -1) {  // if index, then interrupt story
 					if (mode === 'story' && story === -1) { // choose story
 						var size = stories.length - 1;
@@ -266,6 +277,7 @@
 					mode = 'reStory';
 					compTalk = chooseRandom(rep[index].array); // all replies
 				}
+
 				timeId = window.setTimeout(function () {
 					$('#content').prepend('Computer: ' + compTalk + '<br/>');
 					timeId = window.setTimeout(function () {
@@ -273,21 +285,30 @@
 					}, afterWait); // when story ends
 				}, beforeWait); // BETWEEN 1 AND 11 SECONDS
 			}
+
+
 			$(function() {
+
 				Math.seedrandom();
+
 				$('#playerTalk').keypress(function (e) {
 				  if (e.keyCode == 13) $('#talkButt').click();
 				});
+
 				$('#talkButt').click(function () {
 					playerTalk = $('#playerTalk').val();
 					if (playerTalk === '') return;
+
 					playerTimer = 0;
+
 					$('#playerTalk').val('');
 					$('#content').prepend('You: ' + playerTalk + '<br/>');
+
 					window.clearTimeout(timeId);
 					if (story === -1 && storyLine > 0) storyLine -= 1; // fix for clearTimouts
 					else if (story !== -1 && storyLine > -1) storyLine -= 1;
-					var someRandomness = (Math.random() > 0.2) ? true : false;
+
+					var someRandomness = (Math.random() > 0.05) ? true : false;
 					if (someRandomness) {
 						for (var i = 0; i < checks.length; i++) {
 							if (check(checks[i].array)) {
@@ -297,9 +318,11 @@
 					}
 					return compThink(-1);
 				});
+
 				setInterval(function () {
 					playerTimer += 1;
 				}, 1000);
+
 				$('#content').prepend('scripts loaded<br/>');
 				setTimeout(function () {
 					$('#content').prepend('64K RAM SYSTEM  38911 BYTES FREE<br/>');
@@ -310,7 +333,9 @@
 						}, 400);
 					}, 1400);
 				}, 400);
+
 			});
+
 		</script>
 	</head>
 
